@@ -71,3 +71,17 @@ int job_queue_pop(JobQueue* job_queue, Job* job) {
 
     return 0;
 }
+
+int job_queue_destroy(JobQueue* job_queue) {
+    assert(job_queue != NULL);
+    int err = 0;
+    err = pthread_cond_destroy(&job_queue->new_job_cond_v);
+    if (err) return err;
+    err = pthread_mutex_destroy(&job_queue->new_job_cond_mux);
+    if (err) return err;
+    err = pthread_mutex_destroy(&job_queue->fifo_lock);
+    if (err) return err;
+    err = fifo_destroy(&job_queue->fifo);
+    if (err) return err;
+    return 0;
+}
