@@ -78,14 +78,6 @@ $(test): $(objects) $(test-objects) $(test-obj-dir)/test-main.o
 	@mkdir -p $(@D)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-# For running tests from make
-define newline
-
-
-endef
-check: $(tests)
-	$(foreach t, $(tests), ./$(t)$(newline))
-
 clean:
 	rm -f $(objects)
 	rm -f $(obj-dir)/main.o
