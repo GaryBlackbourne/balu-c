@@ -1,37 +1,78 @@
+#include "fifo.h"
 #include "unity.h"
 
 #include "job-queue-test.h"
+#include "job-queue.h"
 
+#include <errno.h>
+#include <pthread.h>
+
+extern Configuration config;
 
 void job_queue_init_test(void){
-    TEST_FAIL();
+    JobQueue job_queue;
+    errno = 0;
+    int ret = job_queue_init(&job_queue, &config);
+    TEST_ASSERT_EQUAL(0, ret);
+    TEST_ASSERT_EQUAL(0, errno);
+
+    // fifo initialized correctly
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.items_num);
+    TEST_ASSERT_EQUAL(config.job_queue_length, job_queue.fifo.length);
+
+    // mutex constructed correctly
+    ret = 0;
+    ret = pthread_mutex_trylock(&job_queue.fifo_lock);
+    TEST_ASSERT_EQUAL(0, ret);
+    pthread_mutex_unlock(&job_queue.fifo_lock);
+
+    // cond var mutex constructed correctly
+    ret = 0;
+    ret = pthread_mutex_trylock(&job_queue.new_job_cond_mux);
+    TEST_ASSERT_EQUAL(0, ret);
+    pthread_mutex_unlock(&job_queue.new_job_cond_mux);
+
+    // todo how to test cond var.
 }
 
-void job_queue_destroy_empty_test(void) {
-    TEST_FAIL();
+void job_queue_destroy_test(void) {
+    JobQueue job_queue;
+    job_queue_init(&job_queue, &config);
+
+    int ret = job_queue_destroy(&job_queue);
+    TEST_ASSERT_EQUAL(0, ret);
+
+    TEST_ASSERT_NULL(job_queue.fifo.list);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.length);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.index);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.items_num);
+
+    TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.fifo_lock));
+    TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.new_job_cond_mux));
 }
 
 void job_queue_destroy_non_empty_test(void) {
-    TEST_FAIL();
-}
+    JobQueue job_queue;
+    job_queue_init(&job_queue, &config);
 
-void job_queue_push_normal(void) {
-    TEST_FAIL();
-}
+    Job job = {
+        .connection = {
+            .socket = 4,
+            .address = {0},
+            .address_length = 7,
+        },
+    };
 
-void job_queue_push_full(void) {
-    TEST_FAIL();
-}
+    job_queue_push(&job_queue, job);
 
-void job_queue_pop_normal(void) {
-    TEST_FAIL();
-}
+    int ret = job_queue_destroy(&job_queue);
+    TEST_ASSERT_EQUAL(0, ret);
 
-void job_queue_pop_empty(void) {
-    TEST_FAIL();
-}
+    TEST_ASSERT_NULL(job_queue.fifo.list);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.length);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.index);
+    TEST_ASSERT_EQUAL(0, job_queue.fifo.items_num);
 
-void job_queue_pop_null_size(void) {
-    TEST_FAIL();
+    TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.fifo_lock));
+    TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.new_job_cond_mux));
 }
-

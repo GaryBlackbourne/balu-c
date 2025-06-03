@@ -67,13 +67,8 @@ int main(void) {
 
     //-------------------- workerpool --------------------
     RUN_TEST(job_queue_init_test);
-    RUN_TEST(job_queue_destroy_empty_test);
+    RUN_TEST(job_queue_destroy_test);
     RUN_TEST(job_queue_destroy_non_empty_test);
-    RUN_TEST(job_queue_push_normal);
-    RUN_TEST(job_queue_push_full);
-    RUN_TEST(job_queue_pop_normal);
-    RUN_TEST(job_queue_pop_empty);
-    RUN_TEST(job_queue_pop_null_size);
 
     return UNITY_END();
 }
