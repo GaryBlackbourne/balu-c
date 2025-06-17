@@ -3,6 +3,7 @@
 
 #include "fifo.h"
 #include "configuration.h"
+#include "job-queue.h"
 
 /**
  * @brief Connector struct to handle requests.
@@ -53,6 +54,8 @@ int connector_destroy(Connector* connector);
  * @return integer, indicating error or success. on success returns 0, on
  * error returns an error code.
  */
-int connector_start(Connector* connector, Fifo* job_queue);
+int connector_start(Connector* connector);
+
+int connector_iterate(Connector* connector, JobQueue* job_queue);
 
 #endif

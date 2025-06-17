@@ -1,6 +1,7 @@
 #include "connector.h"
 #include "connection.h"
 #include "fifo.h"
+#include "job-queue.h"
 
 #include <assert.h>
 #include <netinet/in.h>
@@ -45,9 +46,8 @@ int connector_destroy(Connector* connector) {
     return ret;
 }
 
-int connector_start(Connector* connector, Fifo* job_queue) {
+int connector_start(Connector* connector) {
     assert(connector != NULL);
-    assert(job_queue != NULL);
 
     // listen on connector socket
     int ret = listen(connector->socket, 5);  // why 5?
@@ -56,22 +56,33 @@ int connector_start(Connector* connector, Fifo* job_queue) {
         return ret;
     }
 
+    return 0;
+}
+
+int connector_iterate(Connector* connector, JobQueue* job_queue) {
+    assert(connector != NULL);
+    assert(job_queue != NULL);
+
     // poll on connector socket
     struct pollfd p = {
         .events = POLLIN,
         .fd     = connector->socket,
     };
-    while (1) {  // TODO: give some exit condition for proper functionality
 
-        // receive connection, accept it and push to job queue fifo
-        if (poll(&p, 1, -1) > 0) {
-            Connection conn = {0};
-            conn.socket =
-                accept(connector->socket, (struct sockaddr*)&conn.address,
-                       &conn.address_length);
-            fifo_push(job_queue, &conn, sizeof(Connection));
+    // receive connection, accept it and push to job queue fifo
+    if (poll(&p, 1, -1) > 0) {
+        Connection conn = {0};
+        conn.socket =
+            accept(connector->socket, (struct sockaddr*)&conn.address,
+                   &conn.address_length);
+        Job job = {
+            .connection = conn,
+        };
+        int ret = job_queue_push(job_queue, job);
+        if (ret < 0) {
+            close(job.connection.socket);
         }
     }
-
+    
     return 0;
 }
