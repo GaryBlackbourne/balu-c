@@ -51,7 +51,10 @@ int job_queue_push(JobQueue* job_queue, Job job) {
         return -1;
     }
 
-    // TODO signaling
+    // signaling
+    pthread_mutex_lock(&job_queue->new_job_cond_mux);
+    pthread_cond_signal(&job_queue->new_job_cond_v);
+    pthread_mutex_unlock(&job_queue->new_job_cond_mux);
 
     return 0;
 }
@@ -65,8 +68,6 @@ int job_queue_pop(JobQueue* job_queue, Job* job) {
     if (fifo_ret != 0) {
         return -1;
     }
-
-    // TODO signaling
 
     return 0;
 }
