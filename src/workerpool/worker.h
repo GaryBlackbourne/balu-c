@@ -6,26 +6,15 @@
 #include <stdbool.h>
 #include <pthread.h>
 
-#include "fifo.h"
+#include "job-queue.h"
 
 typedef struct {
-    Fifo*            job_queue;
-    bool*            should_quit;
-    pthread_cond_t*  cond_var;
-    pthread_mutex_t* mux;
-} WorkerArgument;
-
-WorkerArgument create_worker_argument(Fifo* job_queue, bool* should_quit,
-                                      pthread_cond_t*  cond_var,
-                                      pthread_mutex_t* mux);
-
-typedef struct {
-    pthread_t handler;
-    void* (*function)(void* vp);
-    WorkerArgument argument;
+    pthread_t handler;           // pthread handler for the thread
+    void* (*function)(void* vp); // function to be executed
+    JobQueue* job_queue;         // stored as reference
 } Worker;
 
-int worker_init(Worker* worker, WorkerArgument argument);
+int worker_init(Worker* worker, JobQueue* job_queue, void* (*function)(void* vp));
 
 int worker_destroy(Worker* worker);
 
