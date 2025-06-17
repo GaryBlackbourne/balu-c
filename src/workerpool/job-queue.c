@@ -53,11 +53,10 @@ int job_queue_push(JobQueue* job_queue, Job job) {
 
     // TODO signaling
 
-    return -1;
+    return 0;
 }
 
 int job_queue_pop(JobQueue* job_queue, Job* job) {
-    assert(job_queue != NULL);
     assert(job_queue != NULL);
 
     pthread_mutex_lock(&job_queue->fifo_lock);
