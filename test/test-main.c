@@ -48,7 +48,10 @@ int main(void) {
 
     RUN_TEST(fifo_pop_normal);
     RUN_TEST(fifo_pop_empty);
+
     RUN_TEST(fifo_pop_null_size);
+    RUN_TEST(fifo_pop_null_data);
+    RUN_TEST(fifo_pop_null_data_null_size);
 
     //-------------------- config --------------------
     RUN_TEST(is_matching_line_test_match_exact);

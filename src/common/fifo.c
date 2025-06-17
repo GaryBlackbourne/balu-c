@@ -59,16 +59,16 @@ int fifo_push(Fifo* fifo, void* data, uint32_t data_size) {
 
 int fifo_pop(Fifo* fifo, void* data, uint32_t* data_size) {
     assert(fifo != NULL);
-    assert(data != NULL);
 
     if (fifo->items_num == 0) {
         // fifo empty
         return -1;
     }
 
-    memcpy(data, fifo->list[fifo->index].data,
-           fifo->list[fifo->index].data_size);
-    if (data_size != NULL){
+    // if either output arguments are null, just remove the top item.
+    if (data != NULL && data_size != NULL) {
+        memcpy(data, fifo->list[fifo->index].data,
+               fifo->list[fifo->index].data_size);
         *data_size = fifo->list[fifo->index].data_size;
     }
 
