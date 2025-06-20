@@ -10,15 +10,19 @@
 int worker_init(Worker* worker, JobQueue* job_queue, void*(*function)(void* vp)) {
     assert(worker != NULL);
     assert(job_queue != NULL);
+    assert(function != NULL);
 
     worker->job_queue = job_queue;
     worker->function  = function;
+    worker->handler   = 0;
 
     return 0;
 }
 
 int worker_start(Worker* worker) {
     assert(worker != NULL);
+    assert(worker->function != NULL);
+    assert(worker->job_queue != NULL);
 
     // create thread with default attributes
     int ret = pthread_create(&worker->handler, NULL, worker->function,
@@ -40,6 +44,9 @@ int worker_destroy(Worker* worker) {
     // cancel running thread
     pthread_cancel(worker->handler);
 
+    worker->handler = 0;
+    worker->function = NULL;
+    worker->job_queue = NULL;
     // we do not deallocate resources, because we only store
     // references, the ownership is not ours
 
