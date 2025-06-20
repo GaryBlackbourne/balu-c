@@ -6,11 +6,11 @@ void test_imin();
 
 void test_imax();
 
-void str_to_i32_test_normal_behavior();
-void str_to_i32_test_bad_input();
+void test_str_to_i32_normal_behavior();
+void test_str_to_i32_bad_input();
 
-void str_to_float_test_normal_behavior();
-void str_to_float_test_bad_input();
-void str_to_float_test_multiple_decimals();
+void test_str_to_float_normal_behavior();
+void test_str_to_float_bad_input();
+void test_str_to_float_multiple_decimals();
 
 #endif

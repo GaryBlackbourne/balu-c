@@ -9,7 +9,7 @@
 
 extern Configuration config;
 
-void job_queue_init_test(void) {
+void test_job_queue_init(void) {
     JobQueue job_queue;
     errno = 0;
     int ret = job_queue_init(&job_queue, &config);
@@ -33,7 +33,7 @@ void job_queue_init_test(void) {
     pthread_mutex_unlock(&job_queue.new_job_cond_mux);
 }
 
-void job_queue_destroy_test(void) {
+void test_job_queue_destroy(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
@@ -49,7 +49,7 @@ void job_queue_destroy_test(void) {
     TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.new_job_cond_mux));
 }
 
-void job_queue_destroy_non_empty_test(void) {
+void test_job_queue_destroy_non_empty(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
@@ -75,7 +75,7 @@ void job_queue_destroy_non_empty_test(void) {
     TEST_ASSERT_EQUAL(EINVAL, pthread_mutex_trylock(&job_queue.new_job_cond_mux));
 }
 
-void job_queue_push_non_full_test(void) {
+void test_job_queue_push_non_full(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
@@ -97,7 +97,7 @@ void job_queue_push_non_full_test(void) {
     job_queue_destroy(&job_queue);
 }
 
-void job_queue_push_full_test(void) {
+void test_job_queue_push_full(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
@@ -122,7 +122,7 @@ void job_queue_push_full_test(void) {
     TEST_ASSERT_EQUAL(config.job_queue_length - 1, job_queue.fifo.items_num);
 }
 
-void job_queue_pop_non_empty_test(void) {
+void test_job_queue_pop_non_empty(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
@@ -148,7 +148,7 @@ void job_queue_pop_non_empty_test(void) {
     job_queue_destroy(&job_queue);
 }
 
-void job_queue_pop_empty_test(void) {
+void test_job_queue_pop_empty(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 

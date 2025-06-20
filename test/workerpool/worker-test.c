@@ -9,7 +9,7 @@ extern Configuration config;
 
 static void* test_fun(void*) { return NULL; }
 
-void worker_can_initialize(void) {
+void test_worker_can_initialize(void) {
     Worker worker;
     JobQueue job_queue;
     TEST_ASSERT_EQUAL(0, job_queue_init(&job_queue, &config));
@@ -58,7 +58,7 @@ static void* adds_seven(void* arg) {
     return NULL;
 }
 
-void worker_can_start(void) {
+void test_worker_can_start(void) {
     Worker worker;
     JobQueue job_queue;
     TEST_ASSERT_EQUAL(0, job_queue_init(&job_queue, &config));

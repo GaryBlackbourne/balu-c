@@ -32,59 +32,61 @@ int main(void) {
     RUN_TEST(test_imax);
     RUN_TEST(test_imin);
 
-    RUN_TEST(str_to_i32_test_normal_behavior);
-    RUN_TEST(str_to_i32_test_bad_input);
+    RUN_TEST(test_str_to_i32_normal_behavior);
+    RUN_TEST(test_str_to_i32_bad_input);
 
-    RUN_TEST(str_to_float_test_normal_behavior);
-    RUN_TEST(str_to_float_test_bad_input);
-    RUN_TEST(str_to_float_test_multiple_decimals);
+    RUN_TEST(test_str_to_float_normal_behavior);
+    RUN_TEST(test_str_to_float_bad_input);
+    RUN_TEST(test_str_to_float_multiple_decimals);
 
-    RUN_TEST(fifo_init_test);
+    RUN_TEST(test_fifo_init);
 
-    RUN_TEST(fifo_destroy_empty_test);
-    RUN_TEST(fifo_destroy_non_empty_test);
+    RUN_TEST(test_fifo_destroy_empty);
+    RUN_TEST(test_fifo_destroy_non_empty);
 
-    RUN_TEST(fifo_push_normal);
-    RUN_TEST(fifo_push_full);
+    RUN_TEST(test_fifo_push_normal);
+    RUN_TEST(test_fifo_push_full);
 
-    RUN_TEST(fifo_pop_normal);
-    RUN_TEST(fifo_pop_empty);
+    RUN_TEST(test_fifo_pop_normal);
+    RUN_TEST(test_fifo_pop_empty);
 
-    RUN_TEST(fifo_pop_null_size);
-    RUN_TEST(fifo_pop_null_data);
-    RUN_TEST(fifo_pop_null_data_null_size);
+    RUN_TEST(test_fifo_pop_null_size);
+    RUN_TEST(test_fifo_pop_null_data);
+    RUN_TEST(test_fifo_pop_null_data_null_size);
 
     //-------------------- config --------------------
-    RUN_TEST(is_matching_line_test_match_exact);
-    RUN_TEST(is_matching_line_test_match_equation);
-    RUN_TEST(is_matching_line_test_no_match_bad_char);
-    RUN_TEST(is_matching_line_test_no_match_bad_len);
+    RUN_TEST(test_is_matching_line_match_exact);
+    RUN_TEST(test_is_matching_line_match_equation);
+    RUN_TEST(test_is_matching_line_no_match_bad_char);
+    RUN_TEST(test_is_matching_line_no_match_bad_len);
 
-    RUN_TEST(is_matching_arg_test_matching);
-    RUN_TEST(is_matching_arg_test_non_matching_shorter);
-    RUN_TEST(is_matching_arg_test_non_matching_longer);
-    RUN_TEST(is_matching_arg_test_non_matching_bad_char);
+    RUN_TEST(test_is_matching_arg_matching);
+    RUN_TEST(test_is_matching_arg_non_matching_shorter);
+    RUN_TEST(test_is_matching_arg_non_matching_longer);
+    RUN_TEST(test_is_matching_arg_non_matching_bad_char);
 
     //-------------------- connection --------------------
-    RUN_TEST(connector_init_test_is_correct);
-    RUN_TEST(connector_destroy_test_is_correct);
+    RUN_TEST(test_connector_init_is_correct);
+    RUN_TEST(test_connector_destroy_is_correct);
 
     //-------------------- workerpool --------------------
-    RUN_TEST(job_queue_init_test);
+    RUN_TEST(test_job_queue_init);
 
-    RUN_TEST(job_queue_destroy_test);
-    RUN_TEST(job_queue_destroy_non_empty_test);
+    RUN_TEST(test_job_queue_destroy);
+    RUN_TEST(test_job_queue_destroy_non_empty);
 
-    RUN_TEST(job_queue_push_non_full_test);
-    RUN_TEST(job_queue_push_full_test);
+    RUN_TEST(test_job_queue_push_non_full);
+    RUN_TEST(test_job_queue_push_full);
 
-    RUN_TEST(job_queue_pop_non_empty_test);
-    RUN_TEST(job_queue_pop_empty_test);
+    RUN_TEST(test_job_queue_pop_non_empty);
+    RUN_TEST(test_job_queue_pop_empty);
 
-    RUN_TEST(worker_can_initialize);
+    RUN_TEST(test_worker_can_initialize);
 
-    RUN_TEST(worker_properly_destroyed);
-    RUN_TEST(worker_can_start);
+    RUN_TEST(test_worker_properly_destroyed_stopped);
+    RUN_TEST(test_worker_properly_destroyed_running);
+
+    RUN_TEST(test_worker_can_start);
 
     return UNITY_END();
 }

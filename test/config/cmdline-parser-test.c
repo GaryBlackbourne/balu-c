@@ -2,7 +2,7 @@
 #include "_cmdline-parser-private.h"
 #include "unity.h"
 
-void is_matching_arg_test_matching() {
+void test_is_matching_arg_matching() {
     const char* arg = "--version";
     int ret;
 
@@ -12,7 +12,7 @@ void is_matching_arg_test_matching() {
 }
 
 
-void is_matching_arg_test_non_matching_shorter() {
+void test_is_matching_arg_non_matching_shorter() {
     const char* arg = "--v";
     int ret;
 
@@ -21,7 +21,7 @@ void is_matching_arg_test_non_matching_shorter() {
     TEST_ASSERT_EQUAL_INT(0, ret);
 }
 
-void is_matching_arg_test_non_matching_longer() {
+void test_is_matching_arg_non_matching_longer() {
     const char* arg = "--version-full";
     int ret;
 
@@ -30,7 +30,7 @@ void is_matching_arg_test_non_matching_longer() {
     TEST_ASSERT_EQUAL_INT(0, ret);
 }
 
-void is_matching_arg_test_non_matching_bad_char() {
+void test_is_matching_arg_non_matching_bad_char() {
     const char* arg = "--get-version";
     int ret;
 

@@ -3,7 +3,7 @@
 #include "config-file-parser-test.h"
 #include "_config-file-parser-private.h"
 
-void is_matching_line_test_match_exact() {
+void test_is_matching_line_match_exact() {
     const char* line = "test_line";
     const int line_len = strlen(line);
 
@@ -12,7 +12,7 @@ void is_matching_line_test_match_exact() {
     TEST_ASSERT_EQUAL_INT(1, ret);
 }
 
-void is_matching_line_test_match_equation() {
+void test_is_matching_line_match_equation() {
     const char* line = "test_line=12345";
     const int line_len = 10;
 
@@ -30,7 +30,7 @@ void is_matching_line_test_match_equation() {
     TEST_ASSERT_EQUAL_INT(1, ret);
 }
 
-void is_matching_line_test_no_match_bad_char() {
+void test_is_matching_line_no_match_bad_char() {
     const char* line = "test_line=12345";
     const int line_len = 10;
 
@@ -39,7 +39,7 @@ void is_matching_line_test_no_match_bad_char() {
     TEST_ASSERT_EQUAL_INT(0, ret);
 }
 
-void is_matching_line_test_no_match_bad_len() {
+void test_is_matching_line_no_match_bad_len() {
     const char* line = "test_line=12345";
     const int line_len = 10;
 

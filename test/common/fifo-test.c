@@ -2,7 +2,7 @@
 #include "fifo.h"
 #include "fifo-test.h"
 
-void fifo_init_test(void) {
+void test_fifo_init(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 3);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -22,7 +22,7 @@ void fifo_init_test(void) {
     fifo_destroy(&fifo);
 }
 
-void fifo_destroy_empty_test(void) {
+void test_fifo_destroy_empty(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 3);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -34,7 +34,7 @@ void fifo_destroy_empty_test(void) {
     TEST_ASSERT_EQUAL_INT(fifo.items_num, 0);
 }
 
-void fifo_destroy_non_empty_test(void) {
+void test_fifo_destroy_non_empty(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 3);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -51,7 +51,7 @@ void fifo_destroy_non_empty_test(void) {
     TEST_ASSERT_EQUAL_INT(fifo.items_num, 0);
 }
 
-void fifo_push_normal(void){
+void test_fifo_push_normal(void){
     Fifo fifo;
     int ret = fifo_init(&fifo, 3);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -69,7 +69,7 @@ void fifo_push_normal(void){
     fifo_destroy(&fifo);
 }
 
-void fifo_push_full(void) {
+void test_fifo_push_full(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 2);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -86,7 +86,7 @@ void fifo_push_full(void) {
     fifo_destroy(&fifo);
 }
 
-void fifo_pop_normal(void) {
+void test_fifo_pop_normal(void) {
     
     Fifo fifo;
     int ret = fifo_init(&fifo, 3);
@@ -121,7 +121,7 @@ void fifo_pop_normal(void) {
     fifo_destroy(&fifo);
 }
 
-void fifo_pop_empty(void) {
+void test_fifo_pop_empty(void) {
     
     Fifo fifo;
     int ret = fifo_init(&fifo, 2);
@@ -138,7 +138,7 @@ void fifo_pop_empty(void) {
     fifo_destroy(&fifo);
 }
 
-void fifo_pop_null_data(void) {
+void test_fifo_pop_null_data(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 2);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -155,7 +155,7 @@ void fifo_pop_null_data(void) {
     TEST_ASSERT_EQUAL_INT(0, fifo.items_num);
 }
 
-void fifo_pop_null_size(void) {
+void test_fifo_pop_null_size(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 2);
     TEST_ASSERT_EQUAL_INT(0, ret);
@@ -173,7 +173,7 @@ void fifo_pop_null_size(void) {
     fifo_destroy(&fifo);
 }
 
-void fifo_pop_null_data_null_size(void) {
+void test_fifo_pop_null_data_null_size(void) {
     Fifo fifo;
     int ret = fifo_init(&fifo, 2);
     TEST_ASSERT_EQUAL_INT(0, ret);

@@ -1,9 +1,11 @@
-#ifndef _BALU_WORKER_TEST_HPP
-#define _BALU_WORKER_TEST_HPP
+#ifndef _BALU_WORKER_TEST_H
+#define _BALU_WORKER_TEST_H
 
-void worker_can_initialize(void);
+void test_worker_can_initialize(void);
 
-void worker_properly_destroyed(void);
-void worker_can_start(void);
+void test_worker_properly_destroyed_running(void);
+void test_worker_properly_destroyed_stopped(void);
+
+void test_worker_can_start(void);
 
 #endif /* _BALU_WORKER_TEST */

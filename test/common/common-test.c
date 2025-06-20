@@ -31,7 +31,7 @@ void test_imax(void) {
     TEST_ASSERT_EQUAL(a, res);
 }
 
-void str_to_i32_test_normal_behavior() {
+void test_str_to_i32_normal_behavior() {
     int32_t value = 0;
     int ret = 0;
 
@@ -41,7 +41,7 @@ void str_to_i32_test_normal_behavior() {
     TEST_ASSERT_EQUAL_INT(45, value);
 }
 
-void str_to_i32_test_bad_input() {
+void test_str_to_i32_bad_input() {
     int32_t value = 0;
     int ret = 0;
 
@@ -51,7 +51,7 @@ void str_to_i32_test_bad_input() {
     TEST_ASSERT_EQUAL_INT(0, value);
 }
 
-void str_to_float_test_normal_behavior() {
+void test_str_to_float_normal_behavior() {
     float value = 0;
     int ret = 0;
 
@@ -61,7 +61,7 @@ void str_to_float_test_normal_behavior() {
     TEST_ASSERT_EQUAL_FLOAT(14.46, value);
 }
 
-void str_to_float_test_bad_input() {
+void test_str_to_float_bad_input() {
     float value = 0;
     int ret = 0;
 
@@ -71,7 +71,7 @@ void str_to_float_test_bad_input() {
     TEST_ASSERT_EQUAL_FLOAT(0, value);
 }
 
-void str_to_float_test_multiple_decimals() {
+void test_str_to_float_multiple_decimals() {
     float value = 0;
     int ret = 0;
 

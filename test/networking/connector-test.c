@@ -6,7 +6,7 @@
 
 #include <errno.h>
 
-void connector_init_test_is_correct() {
+void test_connector_init_is_correct() {
 
     const Configuration config = configuration_generate_default_config();
     errno                      = 0;
@@ -24,7 +24,7 @@ void connector_init_test_is_correct() {
         -1, getsockopt(connector.socket, SOL_SOCKET, SO_TYPE, &type, &len));
 }
 
-void connector_destroy_test_is_correct() {
+void test_connector_destroy_is_correct() {
     const Configuration config = configuration_generate_default_config();
     errno                      = 0;
     Connector connector        = {0};

@@ -7,7 +7,6 @@
 
 #include "job-queue.h"
 #include "worker.h"
-#include "fifo.h"
 
 /**
  * @brief Workerpool struct for managing running worker threads and jobs.
