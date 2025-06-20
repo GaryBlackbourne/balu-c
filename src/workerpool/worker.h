@@ -20,6 +20,4 @@ int worker_destroy(Worker* worker);
 
 int worker_start(Worker* worker);
 
-void* worker_thread_function(void* arg /*Fifo of Jobs*/);
-
 #endif
