@@ -11,6 +11,7 @@
 #include "configuration-test.h"
 #include "connector-test.h"
 #include "job-queue-test.h"
+#include "worker-test.h"
 
 Configuration config;
 
@@ -79,6 +80,11 @@ int main(void) {
 
     RUN_TEST(job_queue_pop_non_empty_test);
     RUN_TEST(job_queue_pop_empty_test);
+
+    RUN_TEST(worker_can_initialize);
+
+    RUN_TEST(worker_properly_destroyed);
+    RUN_TEST(worker_can_start);
 
     return UNITY_END();
 }
