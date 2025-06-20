@@ -42,7 +42,9 @@ int worker_destroy(Worker* worker) {
     assert(worker != NULL);
 
     // cancel running thread
-    pthread_cancel(worker->handler);
+    if (worker->handler != 0) {
+        pthread_cancel(worker->handler);
+    }
 
     worker->handler = 0;
     worker->function = NULL;
