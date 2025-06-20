@@ -21,7 +21,22 @@ void worker_can_initialize(void) {
     TEST_ASSERT_EQUAL(test_fun, worker.function);
 }
 
-void worker_properly_destroyed(void) {
+void test_worker_properly_destroyed_running(void) {
+    Worker worker;
+    JobQueue job_queue;
+    TEST_ASSERT_EQUAL(0, job_queue_init(&job_queue, &config));
+    TEST_ASSERT_EQUAL(0, worker_init(&worker, &job_queue, test_fun));
+    TEST_ASSERT_EQUAL(0, worker_start(&worker));
+
+    int ret = worker_destroy(&worker);
+    TEST_ASSERT_EQUAL(0, ret);
+    TEST_ASSERT_EQUAL(0, worker.handler);
+    TEST_ASSERT_EQUAL(NULL, worker.function);
+    TEST_ASSERT_EQUAL(NULL, worker.job_queue);
+    TEST_ASSERT_NOT_NULL(&job_queue);
+}
+
+void test_worker_properly_destroyed_stopped(void) {
     Worker worker;
     JobQueue job_queue;
     TEST_ASSERT_EQUAL(0, job_queue_init(&job_queue, &config));
