@@ -21,7 +21,7 @@ typedef struct {
 int workerpool_init(Workerpool* workerpool, JobQueue* job_queue,
                     const Configuration* config);
 
-/* int workerpool_start(Workerpool* workerpool); */
+int workerpool_start(Workerpool* workerpool);
 
 /* int workerpool_stop(Workerpool* workerpool); */
 
