@@ -50,6 +50,8 @@ int workerpool_destroy(Workerpool* workerpool) {
     }
     free(workerpool->pool);
     workerpool->pool = NULL;
+    workerpool->pool_size = 0;
+    workerpool->job_queue = NULL;
 
     return 0;
 }
@@ -58,7 +60,7 @@ int workerpool_start(Workerpool* workerpool) {
     assert(workerpool != NULL);
 
     for (int i = 0; i < workerpool->pool_size; i++) {
-        int ret = worker_start(&workerpool->pool[i]);
+        int ret = worker_start(&(workerpool->pool[i]));
         if (ret != 0) { return ret; }
     }
 
