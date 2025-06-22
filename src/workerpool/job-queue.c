@@ -63,7 +63,8 @@ int job_queue_pop(JobQueue* job_queue, Job* job) {
     assert(job_queue != NULL);
 
     pthread_mutex_lock(&job_queue->fifo_lock);
-    int fifo_ret = fifo_pop(&job_queue->fifo, &job, NULL);
+    int fifo_ret = fifo_pop(&(job_queue->fifo), job, NULL);
+    // todo: check if size returned is apropriate?
     pthread_mutex_unlock(&job_queue->fifo_lock);
     if (fifo_ret != 0) {
         return -1;
