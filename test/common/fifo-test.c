@@ -151,7 +151,16 @@ void test_fifo_pop_null_data(void) {
     
     ret = fifo_pop(&fifo, NULL, &data_size);
     TEST_ASSERT_EQUAL_INT(0, ret);
-    TEST_ASSERT_EQUAL_INT(66, data_size);
+    TEST_ASSERT_EQUAL_INT(sizeof(int), data_size);
+    TEST_ASSERT_EQUAL_INT(0, fifo.items_num);
+
+    ret = fifo_push(&fifo, &data, sizeof(int));
+    TEST_ASSERT_EQUAL_INT(0, ret);
+
+    // data_size is igored when popping
+    ret = fifo_pop(&fifo, NULL, NULL);
+    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(sizeof(int), data_size);
     TEST_ASSERT_EQUAL_INT(0, fifo.items_num);
 }
 
@@ -167,23 +176,7 @@ void test_fifo_pop_null_size(void) {
     uint32_t ret_data = 15;
     ret = fifo_pop(&fifo, &ret_data, NULL);
     TEST_ASSERT_EQUAL_INT(0, ret);
-    TEST_ASSERT_EQUAL_INT(15, ret_data);
-    TEST_ASSERT_EQUAL_INT(0, fifo.items_num);
-
-    fifo_destroy(&fifo);
-}
-
-void test_fifo_pop_null_data_null_size(void) {
-    Fifo fifo;
-    int ret = fifo_init(&fifo, 2);
-    TEST_ASSERT_EQUAL_INT(0, ret);
-
-    int data = 5;
-    ret = fifo_push(&fifo, &data, sizeof(int));
-    TEST_ASSERT_EQUAL_INT(0, ret);
-
-    ret = fifo_pop(&fifo, NULL, NULL);
-    TEST_ASSERT_EQUAL_INT(0, ret);
+    TEST_ASSERT_EQUAL_INT(5, ret_data);
     TEST_ASSERT_EQUAL_INT(0, fifo.items_num);
 
     fifo_destroy(&fifo);
