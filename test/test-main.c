@@ -12,6 +12,7 @@
 #include "connector-test.h"
 #include "job-queue-test.h"
 #include "worker-test.h"
+#include "workerpool-test.h"
 
 Configuration config;
 
@@ -87,6 +88,11 @@ int main(void) {
     RUN_TEST(test_worker_properly_destroyed_running);
 
     RUN_TEST(test_worker_can_start);
+
+    RUN_TEST(test_workerpool_init);
+    RUN_TEST(test_workerpool_destroy);
+
+    RUN_TEST(test_workerpool_start);
 
     return UNITY_END();
 }
