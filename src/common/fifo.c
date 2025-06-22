@@ -65,10 +65,14 @@ int fifo_pop(Fifo* fifo, void* data, uint32_t* data_size) {
         return -1;
     }
 
-    // if either output arguments are null, just remove the top item.
-    if (data != NULL && data_size != NULL) {
+    // if data is null, just remove the top item.
+    if (data != NULL) {
         memcpy(data, fifo->list[fifo->index].data,
                fifo->list[fifo->index].data_size);
+    }
+
+    // if size is null, do not return size value
+    if (data_size != NULL) {
         *data_size = fifo->list[fifo->index].data_size;
     }
 
