@@ -21,7 +21,7 @@ typedef struct {
 
     uint16_t job_queue_length;
 
-    uint16_t worker_pool_lize;
+    uint16_t workerpool_size;
 
 } Configuration;
 

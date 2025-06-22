@@ -25,7 +25,7 @@ Configuration configuration_generate_default_config() {
 
     conf.job_queue_length = 20;
 
-    conf.worker_pool_lize = 5;
+    conf.workerpool_size = 5;
 
     return conf;
 }
@@ -45,5 +45,5 @@ void configuration_print_config(const Configuration* config, FILE* fstream) {
     fprintf(fstream, "connection:job_queue_length = %d\n",
             config->job_queue_length);
     fprintf(fstream, "workerpool:worker_pool_size = %d\n",
-            config->worker_pool_lize);
+            config->workerpool_size);
 }
