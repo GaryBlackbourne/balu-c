@@ -126,23 +126,45 @@ void test_job_queue_pop_non_empty(void) {
     JobQueue job_queue;
     job_queue_init(&job_queue, &config);
 
-    Job job = {
+    Job job1 = {
         .connection = {
-            .socket = 4,
+            .socket = 1,
             .address = {0},
-            .address_length = 7,
+            .address_length = 11,
+        },
+    };
+    Job job2 = {
+        .connection = {
+            .socket = 2,
+            .address = {0},
+            .address_length = 22,
+        },
+    };
+    Job job3 = {
+        .connection = {
+            .socket = 3,
+            .address = {0},
+            .address_length = 33,
         },
     };
 
-    job_queue_push(&job_queue, job);
-    job_queue_push(&job_queue, job);
-    job_queue_push(&job_queue, job);
+    job_queue_push(&job_queue, job1);
+    job_queue_push(&job_queue, job2);
+    job_queue_push(&job_queue, job3);
 
     int ret = -1;
-    for (int i = 0; i < 3; i++) {
-        ret = job_queue_pop(&job_queue, NULL);
+    for (int i = 1; i < 4; i++) { // i : 1..3
+
+        Job job = {0};
+
+        ret = job_queue_pop(&job_queue, &job);
+
         TEST_ASSERT_EQUAL_INT(0, ret);
-        TEST_ASSERT_EQUAL_INT(2 - i, job_queue.fifo.items_num);
+
+        TEST_ASSERT_EQUAL_INT(i, job.connection.socket);
+        TEST_ASSERT_EQUAL_INT(i * 11, job.connection.address_length);
+
+        TEST_ASSERT_EQUAL_INT(3 - i, job_queue.fifo.items_num);
     }
 
     job_queue_destroy(&job_queue);
