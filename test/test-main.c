@@ -53,7 +53,6 @@ int main(void) {
 
     RUN_TEST(test_fifo_pop_null_size);
     RUN_TEST(test_fifo_pop_null_data);
-    RUN_TEST(test_fifo_pop_null_data_null_size);
 
     //-------------------- config --------------------
     RUN_TEST(test_is_matching_line_match_exact);

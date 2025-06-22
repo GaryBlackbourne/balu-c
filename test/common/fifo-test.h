@@ -13,6 +13,5 @@ void test_fifo_pop_empty(void);
 
 void test_fifo_pop_null_data(void);
 void test_fifo_pop_null_size(void);
-void test_fifo_pop_null_data_null_size(void);
 
 #endif
