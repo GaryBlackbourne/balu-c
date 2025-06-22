@@ -18,7 +18,7 @@ typedef struct {
 } Workerpool;
 
 int workerpool_init(Workerpool* workerpool, JobQueue* job_queue,
-                    const Configuration* config);
+                    const Configuration* config, void* (*worker_function)(void*));
 
 int workerpool_start(Workerpool* workerpool);
 

@@ -4,16 +4,16 @@
 
 #include "workerpool.h"
 #include "worker.h"
-#include "worker-thread-functions.h"
 
 int workerpool_init(Workerpool* workerpool, JobQueue* job_queue,
-                    const Configuration* config) {
+                    const Configuration* config, void* (*worker_function)(void*)) {
     assert(workerpool != NULL);
     assert(job_queue != NULL);
     assert(config != NULL);
+    assert(worker_function != NULL);
 
     workerpool->job_queue = job_queue;
-    workerpool->pool_size = config->worker_pool_lize;
+    workerpool->pool_size = config->workerpool_size;
     if (workerpool->pool_size == 0) { return -1; }
 
     workerpool->pool = (Worker*)malloc(workerpool->pool_size * sizeof(Worker));
@@ -24,7 +24,7 @@ int workerpool_init(Workerpool* workerpool, JobQueue* job_queue,
 
         // init worker
         int ret = worker_init(&workerpool->pool[i], job_queue,
-                              worker_thread_function);
+                              worker_function);
         if (ret != 0) {
             fail_index = i;
             goto error_on_worker_init;
