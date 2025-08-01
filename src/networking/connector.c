@@ -70,7 +70,7 @@ int connector_iterate(Connector* connector, JobQueue* job_queue) {
     };
 
     // receive connection, accept it and push to job queue fifo
-    if (poll(&p, 1, -1) > 0) {
+    if (poll(&p, 1, 100) > 0) {
         Connection conn = {0};
         conn.socket =
             accept(connector->socket, (struct sockaddr*)&conn.address,
