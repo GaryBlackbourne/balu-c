@@ -12,7 +12,7 @@ void* worker_thread_function(void* arg) {
 
     JobQueue* job_queue = (JobQueue*)arg;
 
-    while(1) { // how to stop threads?
+    while(1) {
 
         pthread_mutex_lock(&job_queue->new_job_cond_mux);
         pthread_cond_wait(&job_queue->new_job_cond_v, &job_queue->new_job_cond_mux);
@@ -24,6 +24,18 @@ void* worker_thread_function(void* arg) {
             perror("job_queue_pop");
             pthread_exit(NULL);
         }
+
+
+        // parse requests
+        //   - protocol
+        //   - request type
+        //   - header?
+        //   - content?
+
+        // generate response
+        //   - file read
+        //   - standard errors? (unsupported req type)
+        //   - logger?
 
         const char* response = "\
 HTTP/1.0 200 OK\r\n\
@@ -39,7 +51,6 @@ Content-Length: 106\r\n\
 </html>\r\n\
             ";
         size_t response_len = strlen(response);
-
         ret = write(job.connection.socket, response, response_len);
         if (ret < 0) {
             perror("write");
